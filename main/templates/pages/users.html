@@ -2,37 +2,37 @@
 
 
 {% block content %}
+ <div class="row mt-3">
+    <div class="col position-relative border bg-light px-3 py-2">
+      <h4>Все пользователи:</h4>
+      <table class="table table-bordered table-hover text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Email</th>
+            <th scope="col">Админ</th>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td> </td>
-
-    </tr>
-  </tbody>
-</table>
-
-
+          </tr>
+        </thead>
+        <tbody>
+        {% for item in users %}
+        <tr>
+          <th> {{ item.pk }}</th>
+          <th> {{ item }} </th>
+          <th> {{ item.email }} </th>
+            {% if item.is_superuser %}
+          <th>Да
+          </th>
+            {% else %}
+          <th>
+            Нет
+          </th>
+          {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+ </div>
 {% endblock %}
