@@ -161,3 +161,13 @@ def all_votings(request):
         'votings': Voting.objects.filter(published=True).order_by('-id')
     }
     return render(request, 'pages/all_votings.html', context)
+
+
+def all_members(request):
+    context = {
+        'pagename': 'Все пользователи',
+        'menu': get_menu_context(),
+
+    }
+
+    return render(request, 'pages/users.html', context)

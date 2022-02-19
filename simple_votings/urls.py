@@ -35,5 +35,6 @@ urlpatterns = [
     path('create_voting/', views.create_voting_page, name='create_voting'),
     path('profile/<str:user_id>/', views.profile_page, name='profile'),
     path('all_votings/', views.all_votings, name='all_votings'),
-    path('about/', views.about_page, name='about')
+    path('about/', views.about_page, name='about'),
+    path('users/', views.all_members, name='users')
 ]
