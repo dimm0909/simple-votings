@@ -3,12 +3,14 @@
 
 {% block content %}
 
-<table class="table">
+<h4>Все пользователи:</h4>
+<table class="table table-bordered table-hover text-center">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
+      <th scope="col">Admin</th>
 
     </tr>
   </thead>
@@ -18,6 +20,14 @@
     <th> {{ item.pk }}</th>
     <th> {{ item }} </th>
     <th> {{ item.email }} </th>
+      {% if item.is_superuser %}
+    <th>Yes
+    </th>
+      {% else %}
+    <th>
+      No
+    </th>
+    {% endif %}
   </tr>
   {% endfor %}
   </tbody>

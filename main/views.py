@@ -12,6 +12,7 @@ def get_menu_context():
     return [
         {'url_name': 'index', 'name': 'Главная'},
         {'url_name': 'about', 'name': 'О сайте'},
+        {'url_name': 'users', 'name': 'Пользователели'}
     ]
 
 
@@ -164,9 +165,11 @@ def all_votings(request):
 
 
 def all_members(request):
+
     context = {
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
+
     }
     users = User.objects.filter()
     context["users"] = users
