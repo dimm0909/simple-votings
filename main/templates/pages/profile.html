@@ -22,6 +22,12 @@
         <br>
       </form>
 
+      {% if user.is_superuser %}
+      <p>Админ: Да</p>
+      {% else %}
+      <p>Админ: Нет</p>
+      {% endif %}
+
       <p id="id_email">Почта: {{ user.email }}&nbsp&nbsp&nbsp<a onclick="change_email()" id="btn_change_email" href="#">Изменить</a>
       </p>
 
@@ -48,6 +54,7 @@
       </form>
       <br>
     </div>
+
     <div class="col border m-3 bg-light px-3 py-2">
       <h4>Активность</h4>
       <table class="table table-bordered table-hover text-center">
