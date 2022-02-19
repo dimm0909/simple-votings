@@ -1,2 +1,2 @@
-# simple-votings
+# simple votings
 simple votings site
