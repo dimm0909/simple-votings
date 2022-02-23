@@ -171,6 +171,9 @@ def all_members(request):
         'menu': get_menu_context(),
 
     }
+
     users = User.objects.filter()
+
     context["users"] = users
+
     return render(request, 'pages/users.html', context)
