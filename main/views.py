@@ -165,7 +165,6 @@ def all_votings(request):
 
 
 def all_members(request):
-
     context = {
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
