@@ -81,7 +81,7 @@
                   {% else %}
                     "{{ votefact.fact.votefactvariant_set.first.variant.description }}"
                   {% endif %}
-                  в голосовании "<a href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
+                  в голосовании "<a class = "link-dark" href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
                 </td>
                 <td>{{ votefact.fact.created_at }}</td>
               </tr>
