@@ -25,7 +25,7 @@
           <tbody>
           {% for item in votings %}
             <tr>
-              <th><a href="{% url 'voting_public' item.id %}">{{ item.name }}</a></th>
+              <th><a class="link-dark" href="{% url 'voting_public' item.id %}">{{ item.name }}</a></th>
               <th>{{ item.description }}</th>
               <th>{{ item.author }}</th>
             </tr>
