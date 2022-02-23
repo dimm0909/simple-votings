@@ -2,84 +2,94 @@
 
 
 {% block content %}
-  <div class="row">
-    <div class="col border bg-light mt-2">
-      <h3>Профиль пользователя {{ user.username }}</h3>
+  <div class="row mt-3">
+    <div class="container">
+      <div class="border rounded shadow-sm bg-white py-1 px-2">
+        <h3>Профиль пользователя {{ user.username }}</h3>
+      </div>
     </div>
   </div>
-
   <div class="row mt-3">
-    <div class="col border m-3 bg-light px-3 py-2">
-      <h4>Здесь детали профиля</h4>
-      <p id="id_name">Имя: {{ user.username }}&nbsp&nbsp&nbsp<a onclick="change_name()" id="btn_change_name" href="#">Изменить</a>
-      </p>
-      <form method="POST" action="{% url 'profile' user.id %}" id="form_change_name" hidden>
-        {% csrf_token %}
-        <label for="id_new_name" class="form-label">Введите новое имя:</label>
-        <input type="text" name="name" class="form-control" id="id_new_name">
-        <input type="submit" class="btn btn-primary" value="Сохранить">
-        <br>
-        <br>
-      </form>
+    <div class="col">
+    <div class="container">
+      <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h4>Здесь детали профиля</h4>
+        <hr>
+        <div class="container bordered">
+          <p class="d-flex border-bottom py-2" id="id_name"><b>Логин:</b>&nbsp{{ user.username }}&nbsp&nbsp&nbsp<a onclick="change_name()" id="btn_change_name" href="#">Изменить</a></p>
+          <form method="POST" action="{% url 'profile' user.id %}" id="form_change_name" hidden>
+            {% csrf_token %}
+            <label for="id_new_name" class="form-label">Введите новое имя:</label>
+            <input type="text" name="name" class="form-control" id="id_new_name">
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+            <br>
+            <br>
+          </form>
+          <p class="d-flex border-bottom py-2"><b>Админ:</b>&nbsp
+          {% if user.is_superuser %}
+          Да
+          {% else %}
+          Нет
+          {% endif %}
+          </p>
 
-      {% if user.is_superuser %}
-      <p>Админ: Да</p>
-      {% else %}
-      <p>Админ: Нет</p>
-      {% endif %}
+          <p class="d-flex border-bottom py-2" id="id_email"><b>Почта:</b>&nbsp{{ user.email }}&nbsp&nbsp&nbsp<a onclick="change_email()" id="btn_change_email" href="#">Изменить</a>
+          </p>
 
-      <p id="id_email">Почта: {{ user.email }}&nbsp&nbsp&nbsp<a onclick="change_email()" id="btn_change_email" href="#">Изменить</a>
-      </p>
+          <form method="POST" action="{% url 'profile' user.id %}" id="form_change_email" hidden>
+            {% csrf_token %}
+            <label for="id_new_email" class="form-label">Введите новую почту:</label>
+            <input type="email" name="email" class="form-control" id="id_new_email">
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+            <br>
+            <br>
+          </form>
 
-      <form method="POST" action="{% url 'profile' user.id %}" id="form_change_email" hidden>
-        {% csrf_token %}
-        <label for="id_new_email" class="form-label">Введите новую почту:</label>
-        <input type="email" name="email" class="form-control" id="id_new_email">
-        <input type="submit" class="btn btn-primary" value="Сохранить">
-        <br>
-        <br>
-      </form>
-
-      <a onclick="change_password()" id="btn_change_psw" href="#">Изменить пароль</a>
-      <br id="br_useless">
-      <form method="POST" action="{% url 'profile' user.id %}" id="form_change_psw" hidden>
-        {% csrf_token %}
-        <div class="password">
-          <label for="password_input" class="form-label">Введите новый пароль:</label>
-          <input type="password" class="form-control" id="password_input" name="password">
-          <label><input type="checkbox" class="password-checkbox" id="check_box" onclick="hide_show_psw()"> Показать
-            пароль</label>
+          <p class="d-flex border-bottom py-2"><b>Пароль:</b>&nbsp&nbsp&nbsp<a onclick="change_password()" id="btn_change_psw" href="#">Изменить пароль</a></p>
+          <br id="br_useless">
+          <form method="POST" action="{% url 'profile' user.id %}" id="form_change_psw" hidden>
+            {% csrf_token %}
+            <div class="password">
+              <label for="password_input" class="form-label">Введите новый пароль:</label>
+              <input type="password" class="form-control" id="password_input" name="password">
+              <label><input type="checkbox" class="password-checkbox" id="check_box" onclick="hide_show_psw()"> Показать
+                пароль</label>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+          </form>
         </div>
-        <input type="submit" class="btn btn-primary" value="Сохранить">
-      </form>
-      <br>
+       </div>
+     </div>
     </div>
-
-    <div class="col border m-3 bg-light px-3 py-2">
-      <h4>Активность</h4>
-      <table class="table table-bordered table-hover text-center">
-        <thead>
-        <tr>
-          <th scope="col">Действие</th>
-          <th scope="col">Дата</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for votefact in votefacts %}
-          <tr>
-            <td>Проголосовал за
-              {% if  votefact.voting.type == 2 %}
-                несколько вариантов
-              {% else %}
-                "{{ votefact.fact.votefactvariant_set.first.variant.description }}"
-              {% endif %}
-              в голосовании "<a href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
-            </td>
-            <td>{{ votefact.fact.created_at }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    <div class="col">
+      <div class="container">
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+          <h4>Активность</h4>
+          <table class="table table-bordered table-hover text-center">
+            <thead>
+            <tr>
+              <th scope="col">Действие</th>
+              <th scope="col">Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for votefact in votefacts %}
+              <tr>
+                <td>Проголосовал за
+                  {% if  votefact.voting.type == 2 %}
+                    несколько вариантов
+                  {% else %}
+                    "{{ votefact.fact.votefactvariant_set.first.variant.description }}"
+                  {% endif %}
+                  в голосовании "<a href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
+                </td>
+                <td>{{ votefact.fact.created_at }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
