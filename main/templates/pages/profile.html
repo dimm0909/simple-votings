@@ -2,13 +2,15 @@
 
 
 {% block content %}
-  <div class="row">
-    <div class="col border mt-2">
-      <h3>Профиль пользователя {{ user.username }}</h3>
+  <div class="row mt-3">
+    <div class="container">
+      <div class="border rounded shadow-sm bg-white py-1 px-2 ">
+        <h3>Профиль пользователя {{ user.username }}</h3>
+      </div>
     </div>
   </div>
   <div class="row mt-3">
-    <div class="col border">
+    <div class="col">
     <div class="container">
       <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h4>Здесь детали профиля</h4>
@@ -58,31 +60,35 @@
        </div>
      </div>
     </div>
-    <div class="col border m-3 bg-light px-3 py-2">
-      <h4>Активность</h4>
-      <table class="table table-bordered table-hover text-center">
-        <thead>
-        <tr>
-          <th scope="col">Действие</th>
-          <th scope="col">Дата</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for votefact in votefacts %}
-          <tr>
-            <td>Проголосовал за
-              {% if  votefact.voting.type == 2 %}
-                несколько вариантов
-              {% else %}
-                "{{ votefact.fact.votefactvariant_set.first.variant.description }}"
-              {% endif %}
-              в голосовании "<a href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
-            </td>
-            <td>{{ votefact.fact.created_at }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    <div class="col">
+      <div class="container">
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+          <h4>Активность</h4>
+          <table class="table table-bordered table-hover text-center">
+            <thead>
+            <tr>
+              <th scope="col">Действие</th>
+              <th scope="col">Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for votefact in votefacts %}
+              <tr>
+                <td>Проголосовал за
+                  {% if  votefact.voting.type == 2 %}
+                    несколько вариантов
+                  {% else %}
+                    "{{ votefact.fact.votefactvariant_set.first.variant.description }}"
+                  {% endif %}
+                  в голосовании "<a href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
+                </td>
+                <td>{{ votefact.fact.created_at }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
