@@ -172,10 +172,11 @@ def all_members(request):
     }
 
     users = User.objects.filter()
-    user = request.GET.get('search', '0')
+    user_request = request.GET.get('search', '')
 
-    found_user = User.objects.filter(username=user)
+    found_user = User.objects.filter(username=user_request)
 
     context["users"] = found_user if found_user else users
+    context["last_find_request"] = user_request if user_request else ""
 
     return render(request, 'pages/users.html', context)
