@@ -173,8 +173,9 @@ def all_members(request):
 
     users = User.objects.filter()
     user = request.GET.get('search', '0')
-    context["user"] = list(User.objects.filter(username=user))
-    print(context["user"])
-    context["users"] = users
+
+    found_user = User.objects.filter(username=user)
+
+    context["users"] = found_user if found_user else users
 
     return render(request, 'pages/users.html', context)
