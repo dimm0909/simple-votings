@@ -164,18 +164,24 @@ def all_votings(request):
     return render(request, 'pages/all_votings.html', context)
 
 
-def all_members(request):
+def all_users(request):
     context = {
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
 
     }
 
-    users = User.objects.filter()
-    user = request.GET.get('search', '0')
+    users = User.objects.filter()[:50]
+    user_request = request.GET.get('search', '')
 
-    found_user = User.objects.filter(username=user)
+    found_user = User.objects.filter(username=user_request)
 
-    context["users"] = found_user if found_user else users
+    context["last_find_request"] = user_request if user_request else ""
+
+    if user_request != '' and not found_user:
+        context["user_not_found"] = True
+
+    else:
+        context["users"] = found_user if found_user else users
 
     return render(request, 'pages/users.html', context)

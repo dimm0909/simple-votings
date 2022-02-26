@@ -13,16 +13,21 @@
 <div style="display: inline-block;" class="container w-25 mt-3 mb-2">
     <form type="get">
       <div class="input-group">
-        <input class ="form-control" name="search"  placeholder="Искать здесь..." type="search" id="login_onput">
-          <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+        <input class ="form-control" name="search"  placeholder="Искать здесь..." type="search" id="login_onput" value="{{ last_find_request }}">
+        <button class="btn btn-outline-secondary" type="submit">Поиск</button>
       </div>
     </form>
 </div>
 
+{% if user_not_found != True %}
 <div class="row mt-3">
   <div class="container">
     <div class="border rounded shadow-sm bg-white px-3 py-2">
-      <h4>Все пользователи, зарегистрированные на сайте:</h4>
+      {% if last_find_request %}
+      <h4>Пользователи с таким логином:</h4>
+      {% else %}
+      <h4>Последние 50 пользователей, зарегистрированные на сайте</h4>
+      {% endif %}
       <table class="table table-bordered table-hover text-center">
         <thead>
           <tr>
@@ -56,6 +61,28 @@
 </div>
  </div>
 
+{% else %}
+
+<div class="row mt-3">
+  <div class="container">
+    <div class="border rounded shadow-sm bg-white px-3 py-2">
+      <h4>К сожалению, пользователь с таким логином не найден</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="container">
+    <div class="border rounded shadow-sm bg-white px-3 py-2">
+      <h5>Попробуйте выполнить следующие действия:</h5>
+      <hr>
+      <p>• Проверьте правильность введенного логина</p>
+      <p>• Обновите страницу</p>
+    </div>
+  </div>
+</div>
+
+{% endif %}
 <script>
   function search_user(){
     let a = document.getElementById("login_input")
