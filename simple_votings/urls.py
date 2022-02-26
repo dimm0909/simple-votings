@@ -36,5 +36,5 @@ urlpatterns = [
     path('profile/<str:user_id>/', views.profile_page, name='profile'),
     path('all_votings/', views.all_votings, name='all_votings'),
     path('about/', views.about_page, name='about'),
-    path('users/', views.all_members, name='users')
+    path('users/', views.all_users, name='users')
 ]
