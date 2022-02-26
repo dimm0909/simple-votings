@@ -12,8 +12,17 @@
   </div>
 
  <div class="row mt-3">
-    <div class="col position-relative border bg-light px-3 py-2">
-      <h4>Все пользователи:</h4>
+    <div class="container">
+      <div class="border rounded shadow-sm bg-white py-1 px-2">
+        <h3>Пользователи</h3>
+      </div>
+    </div>
+  </div>
+
+<div class="row mt-3">
+  <div class="container">
+    <div class="border rounded shadow-sm bg-white px-3 py-2">
+      <h4>Все пользователи, зарегистрированные на сайте:</h4>
       <table class="table table-bordered table-hover text-center">
         <thead>
           <tr>
@@ -38,13 +47,15 @@
             Нет
           </th>
           {% endif %}
-
         </tr>
         {% endfor %}
         </tbody>
       </table>
     </div>
+  </div>
+</div>
  </div>
+
 <script>
   function search_user(){
     let a = document.getElementById("login_input")
@@ -54,4 +65,3 @@
 </script>
 
 {% endblock %}
-
