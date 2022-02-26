@@ -17,3 +17,7 @@ class OptionsCountForm(forms.Form):
 class VotingRegistrationForm(RegistrationForm):
     class Meta(RegistrationForm.Meta):
         model = User
+
+
+
+
