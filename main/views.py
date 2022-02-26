@@ -171,7 +171,7 @@ def all_members(request):
 
     }
 
-    users = User.objects.filter()
+    users = User.objects.filter()[:50]
     user_request = request.GET.get('search', '')
 
     found_user = User.objects.filter(username=user_request)
