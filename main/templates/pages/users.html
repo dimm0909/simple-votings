@@ -2,15 +2,6 @@
 
 
 {% block content %}
-<div  style="display: inline-block;" class="container w-25 mt-3 mb-2">
-    <form type="get">
-      <div class="input-group">
-        <input class ="form-control" name="search"  placeholder="Искать здесь..." type="search" id="login_onput">
-          <button class="btn btn-outline-secondary" type="submit">Поиск</button>
-      </div>
-    </form>
-  </div>
-
  <div class="row mt-3">
     <div class="container">
       <div class="border rounded shadow-sm bg-white py-1 px-2">
@@ -18,6 +9,15 @@
       </div>
     </div>
   </div>
+
+<div style="display: inline-block;" class="container w-25 mt-3 mb-2">
+    <form type="get">
+      <div class="input-group">
+        <input class ="form-control" name="search"  placeholder="Искать здесь..." type="search" id="login_onput">
+          <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+      </div>
+    </form>
+</div>
 
 <div class="row mt-3">
   <div class="container">
@@ -37,7 +37,7 @@
         {% for item in users %}
         <tr>
           <th> {{ item.id }}</th>
-          <th> {{ item }} </th>
+          <th> <a class = "link-dark" href="/profile/{{ item.id }}"> {{ item }} </a></th>
           <th> {{ item.email }} </th>
             {% if item.is_superuser %}
           <th>Да
