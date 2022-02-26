@@ -2,15 +2,12 @@
 
 
 {% block content %}
-<form action="" method="get">
-  <input name="name"  placeholder="Искать здесь..." type="search">
-  {% for item in users %}
-  {% if name == vasya %}
-  <div> {{ item }}</div>
-  {% endif %}
-  {% endfor %}
-  <button type="submit">Поиск</button>
 
+  <input name="search"  placeholder="Искать здесь..." type="search" id="login_input">
+  <button   type="submit" onclick="search_user()" >Поиск</button>
+<form type="get">
+<input name="search"  placeholder="Искать здесь..." type="search" id="login_onput">
+  <button   type="submit" onclick="search_user()" >Поиск</button>
 </form>
  <div class="row mt-3">
     <div class="col position-relative border bg-light px-3 py-2">
@@ -46,4 +43,13 @@
       </table>
     </div>
  </div>
+<script>
+  function search_user(){
+    let a = document.getElementById("login_input")
+
+    document.location.href = `/profile/${a.value}`
+  }
+</script>
+
 {% endblock %}
+

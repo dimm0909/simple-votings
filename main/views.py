@@ -165,7 +165,6 @@ def all_votings(request):
 
 
 def all_members(request):
-
     context = {
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
@@ -173,7 +172,9 @@ def all_members(request):
     }
 
     users = User.objects.filter()
-
+    user = request.GET.get('search', '0')
+    context["user"] = list(User.objects.filter(username=user))
+    print(context["user"])
     context["users"] = users
 
     return render(request, 'pages/users.html', context)
