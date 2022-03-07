@@ -2,10 +2,16 @@
 
 
 {% block content %}
-  <div class="row mt-3">
-    <div class="col">
-      <h1>Регистрация успешна!</h1>
-      <a href="/" class="btn btn-primary">На главную</a>
+
+{% load static %}
+ <div class="row mt-3">
+    <div class="container flex-column text-center w-50">
+      <div class="border rounded shadow-sm rounded bg-white py-3 px-2">
+        <h1 class="text-center">Регистрация успешна!</h1>
+        <hr>
+        <img class="w-50 mx-auto d-block border-bottom" src="{% static 'img/checkmark.png' %}">
+        <a href="/" class=" mt-4 btn btn-primary btn-lg fw-bold">На главную</a>
     </div>
   </div>
+ </div>
 {% endblock %}
