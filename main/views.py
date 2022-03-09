@@ -36,6 +36,14 @@ def about_page(request):
     return render(request, 'pages/about.html', context)
 
 
+def start_page(request):
+    context = {
+        'pagename': 'Simple-Votings',
+        'menu': get_menu_context()
+    }
+    return render(request, 'pages/start.html', context)
+
+
 @login_required
 def profile_page(request, user_id):
     context = {'menu': get_menu_context()}
@@ -164,6 +172,7 @@ def all_votings(request):
     return render(request, 'pages/all_votings.html', context)
 
 
+@login_required
 def all_users(request):
     context = {
         'pagename': 'Все пользователи',
