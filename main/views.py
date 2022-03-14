@@ -176,6 +176,7 @@ def all_users(request):
 
     found_user = User.objects.filter(username=user_request)
 
+
     context["last_find_request"] = user_request if user_request else ""
 
     if user_request != '' and not found_user:
