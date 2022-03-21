@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
   <div class="row mt-3">
     <div class="container">
       <div class="border rounded shadow-sm bg-white py-1 px-2">
@@ -26,7 +27,7 @@
     </div>
 
     {% if form.errors %}
-        {{ form.errors }}
+    {{ form.error }}
     {% endif %}
 
 {% endblock %}
