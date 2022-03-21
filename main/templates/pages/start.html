@@ -4,13 +4,21 @@
 
 {% load static %}
 
-<div class="row text-center" style="overflow: hidden;">
+<div class="row text-center" style="overflow: hidden; ">
   <img class="px-0" src="{% static 'img/start_background.jpg' %}">
-  <div class="position-absolute start-50 top-50 translate-middle col-md-5 p-lg-5 mx-auto">
+  <div class="translate-middle mx-auto" style="position: absolute; left: 50%; top: 35%; width: 35%">
     <div class="border rounded shadow-sm rounded bg-white py-3 px-2" style="--bs-bg-opacity: .5;">
       <h1 class="display-4">Simple Votings</h1>
       <hr>
-      <p class="lead font-weight-normal mt-3">Сайт для опроса пользователей посредством голосований</p>
+      <p class="lead font-weight-normal mt-3">Сайт для опроса пользователей с помощью голосований</p>
+      <a class="btn btn-light mt-3" style=".bg-light.bg-gradient" href="/create_voting">Создать голосование</a>
+    </div>
+  </div>
+    <div class="mt-5 position-relative top-50" style="width: 35%">
+    <div class="border rounded shadow-sm rounded bg-white py-3 px-2" style="--bs-bg-opacity: .5;">
+      <h1 class="display-4">Simple Votings</h1>
+      <hr>
+      <p class="lead font-weight-normal mt-3">Сайт для опроса пользователей с помощью голосований</p>
       <a class="btn btn-light mt-3" style=".bg-light.bg-gradient" href="/create_voting">Создать голосование</a>
     </div>
   </div>
