@@ -3,7 +3,6 @@
 
 {% block content %}
   <div class="row mt-3">
-
     <div class="container">
       <div class="border rounded shadow-sm bg-white py-1 px-2">
         <h3>Профиль пользователя {{ user.username }}</h3>
@@ -17,14 +16,8 @@
         <h4>Здесь детали профиля</h4>
         <hr>
         <div class="container bordered">
-          <p class="d-flex border-bottom py-2" id="id_name"><b>Логин:</b>&nbsp{{ user.username }}&nbsp&nbsp&nbsp
-           {% if user.name ==
-            <a onclick="change_name()" id="btn_change_name" href="#">Изменить</a></p>
-
-
-
+          <p class="d-flex border-bottom py-2" id="id_name"><b>Логин:</b>&nbsp{{ user.username }}&nbsp&nbsp&nbsp<a onclick="change_name()" id="btn_change_name" href="#">Изменить</a></p>
           <form method="POST" action="{% url 'profile' user.id %}" id="form_change_name" hidden>
-
             {% csrf_token %}
             <label for="id_new_name" class="form-label">Введите новое имя:</label>
             <input type="text" name="name" class="form-control" id="id_new_name">
