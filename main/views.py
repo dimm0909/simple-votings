@@ -195,3 +195,19 @@ def all_users(request):
         context["users"] = found_user if found_user else users
 
     return render(request, 'pages/users.html', context)
+
+
+@login_required
+def settings(request, user_id):
+    context = {'menu': get_menu_context()}
+    if request.method == 'POST':
+        record = User.objects.get(id=user_id)
+        record.username = request.POST.get('name') if request.POST.get('name') else request.user.username
+        record.email = request.POST.get('email') if request.POST.get('email') else request.user.email
+        if request.POST.get('password'):
+            record.set_password(request.POST.get('password'))
+        record.save()
+    context['user'] = get_object_or_404(User, id=user_id)
+    votefacts = reversed(list(VoteFact.objects.filter(user=context['user'])))
+    context['votefacts'] = [{'fact': fact, 'voting': fact.get_voting()} for fact in votefacts]
+    return render(request, 'pages/settings.html', context)
