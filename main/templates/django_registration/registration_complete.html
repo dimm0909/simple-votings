@@ -4,14 +4,30 @@
 {% block content %}
 
 {% load static %}
- <div class="row mt-3">
-    <div class="container flex-column text-center w-50">
-      <div class="border rounded shadow-sm rounded bg-white py-3 px-2">
-        <h1 class="text-center">Регистрация успешна!</h1>
-        <hr>
-        <img class="w-50 mx-auto d-block " src="{% static 'img/checkmark.png' %}">
-        <a href="/" class=" mt-4 btn btn-primary btn-lg fw-bold">На главную</a>
-    </div>
-  </div>
- </div>
+
+<div style="width: 40%" class="modal-body mx-auto bg-white mt-4 border rounded shadow-sm p-5">
+  <h2 class="fw-bold mb-0">Регистрация успешна</h2>
+  <hr>
+  <ul class="d-grid gap-4 my-5 list-unstyled">
+    <li class="d-flex gap-4">
+      <div>
+        <h5 class="mb-0">Вы успешно зарегистрировались на нашем сайте</h5>
+        Теперь вы можете пользоваться всеми функциями сайта
+      </div>
+    </li>
+    <li class="d-flex gap-4">
+      <div>
+        <h5 class="mb-0">Если вы забыли логин или пароль,</h5>
+        Вы можете изменить их в настройках
+      </div>
+    </li>
+    <li class="d-flex gap-4">
+      <div>
+        <h5 class="mb-0">Переходите на главную страницу</h5>
+        И начинайте пользоваться сайтом!
+      </div>
+    </li>
+  </ul>
+  <a href="/" class=" mt-4 btn btn-primary btn-lg">На главную</a>
+</div>
 {% endblock %}
