@@ -17,18 +17,16 @@
       <a class="nav-link" href="{% url 'all_votings' %}">Все голосования</a>
     </li>
     </ul>
-<div class="collapse navbar-collapse md-0 py-0" id="navbarNavDarkDropdown">
+<div class="collapse navbar-collapse md-0 py-0 navbar-dark" id="navbarNavDarkDropdown">
   <ul class="navbar-nav">
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
-          <img style="width: 7%; height: 7%" class="md-4 px-0" src="{% static 'img/settings.png' %}">
+      <a class="nav-link dropdown-toggle  " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+        Настройки
       </a>
     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
       {% block usermenu %}
       {% if request.user.is_authenticated %}
-      <li class="nav-item">
-        <a class="dropdown-item" href="{% url 'profile' request.user.id %}">Профиль</a>
-      </li>
+
       <li class="nav-item">
         <a class="dropdown-item" href="{% url 'settings' request.user.id %}">Настройки</a>
       </li>
