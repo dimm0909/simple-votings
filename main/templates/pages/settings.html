@@ -58,6 +58,17 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Сохранить">
           </form>
+          <table>
+            <form name="test" method="post" action="input1.php">
+              <p><b>Выберите тему:</b><Br>
+                <input type="radio" name="browser" value="light"> Светлая<Br>
+                <input type="radio" name="browser" value="dark"> Темная<Br>
+              </p>
+              <p><input type="submit" value="Отправить">
+                <input type="reset" value="Очистить">
+              </p>
+            </form>
+          </table>
 
 
 
@@ -93,31 +104,7 @@
             {% endfor %}
             </tbody>
           </table>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Тема</th>
-                <th scope="col">Светлая</th>
-                <th scope="col">Темная</th>
 
-              </tr>
-            </thead>
-            <thbody>
-              <tr>
-                <th scope="row"></th>
-                <td>
-                  <button>
-                    <img style="width: 18%; height: 18%:" src="{% static 'img/light_theme.png' %}">
-                  </button>
-                </td>
-                <td>
-                  <button>
-                    <img style="width: 10%; height: 10%:"  src="{% static 'img/dark_theme.png' %}">
-                  </button>
-                </td>
-              </tr>
-            </thbody>
-          </table>
         </div>
       </div>
     </div>
