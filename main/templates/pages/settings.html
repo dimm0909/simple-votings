@@ -58,20 +58,16 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Сохранить">
           </form>
-          <table>
-            <form name="test" method="post" action="input1.php">
+            <form  method="POST" action="{% url 'settings' user.id %}" >
+              {% csrf_token %}
               <p><b>Выберите тему:</b><Br>
-                <input type="radio" name="browser" value="light"> Светлая<Br>
-                <input type="radio" name="browser" value="dark"> Темная<Br>
+                <input  type="radio" name="theme" value="0"> Светлая<Br>
+                <input  type="radio" name="theme" value="1"> Темная<Br>
               </p>
-              <p><input type="submit" value="Отправить">
-                <input type="reset" value="Очистить">
+              <p>
+                <input type="submit" value="Отправить">
               </p>
             </form>
-          </table>
-
-
-
         </div>
        </div>
      </div>

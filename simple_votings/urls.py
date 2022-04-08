@@ -34,9 +34,9 @@ urlpatterns = [
     path('voting/<int:voting_id>/results/', voting_results_page, name='voting_results'),
     path('create_voting/', views.create_voting_page, name='create_voting'),
     path('profile/<str:user_id>/', views.profile_page, name='profile'),
-    path('all_votings/', views.all_votings, name='all_votings'),
+    path('all_votings/', views.all_votings_page, name='all_votings'),
     path('about/', views.about_page, name='about'),
-    path('users/', views.all_users, name='users'),
+    path('users/', views.all_users_page, name='users'),
     path('start/', views.start_page, name='start'),
-    path('settings/<str:user_id>/', views.settings, name='settings')
+    path('settings/<str:user_id>/', views.settings_profile_page, name='settings')
 ]

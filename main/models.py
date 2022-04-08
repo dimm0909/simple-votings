@@ -10,6 +10,7 @@ from django.utils import timezone
 
 class User(AbstractUser):
     status = models.CharField(max_length=255)
+    theme = models.IntegerField( default=0)
 
 
 class UserSettings(models.Model):
@@ -131,3 +132,4 @@ class Complaint(models.Model):
     voting = models.ForeignKey(to=Voting, on_delete=models.CASCADE)
     description = models.CharField(max_length=2000)
     status = models.IntegerField(default=0)
+

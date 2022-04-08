@@ -163,7 +163,7 @@ def create_voting_page(request):
     return render(request, 'pages/voting/create.html', context)
 
 
-def all_votings(request):
+def all_votings_page(request):
     context = {
         'pagename': 'Создание голосования',
         'menu': get_menu_context(),
@@ -173,7 +173,7 @@ def all_votings(request):
 
 
 @login_required
-def all_users(request):
+def all_users_page(request):
     context = {
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
@@ -184,7 +184,6 @@ def all_users(request):
     user_request = request.GET.get('search', '')
 
     found_user = User.objects.filter(username=user_request)
-
 
     context["last_find_request"] = user_request if user_request else ""
 
@@ -198,12 +197,18 @@ def all_users(request):
 
 
 @login_required
-def settings(request, user_id):
+def settings_profile_page(request, user_id):
     context = {'menu': get_menu_context()}
     if request.method == 'POST':
         record = User.objects.get(id=user_id)
         record.username = request.POST.get('name') if request.POST.get('name') else request.user.username
         record.email = request.POST.get('email') if request.POST.get('email') else request.user.email
+        record.theme = request.POST.get('theme') if request.POST.get('theme') else request.user.theme
+        if request.POST.get('theme') == 1:
+            color = "dark"
+        else:
+            color = "dark"
+
         if request.POST.get('password'):
             record.set_password(request.POST.get('password'))
         record.save()
