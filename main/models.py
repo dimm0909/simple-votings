@@ -10,7 +10,7 @@ from django.utils import timezone
 
 class User(AbstractUser):
     status = models.CharField(max_length=255)
-    theme = models.IntegerField( default=0)
+    theme = models.IntegerField(default=0)
 
 
 class UserSettings(models.Model):
