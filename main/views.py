@@ -204,12 +204,14 @@ def settings_profile_page(request, user_id):
         record.username = request.POST.get('name') if request.POST.get('name') else request.user.username
         record.email = request.POST.get('email') if request.POST.get('email') else request.user.email
         record.theme = request.POST.get('theme') if request.POST.get('theme') else request.user.theme
-        if request.POST.get('theme') == 0:
+        if int(request.POST.get('theme')) == 0:
             color = "light"
-            print(1)
+
         else:
+
             color = "dark"
-            print(0)
+        print(color)
+        print(request.POST)
 
         if request.POST.get('password'):
             record.set_password(request.POST.get('password'))
