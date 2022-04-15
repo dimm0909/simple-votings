@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -204,14 +206,15 @@ def settings_profile_page(request, user_id):
         record.username = request.POST.get('name') if request.POST.get('name') else request.user.username
         record.email = request.POST.get('email') if request.POST.get('email') else request.user.email
         record.theme = request.POST.get('theme') if request.POST.get('theme') else request.user.theme
-        if int(request.POST.get('theme')) == 0:
-            color = "light"
+        try:
+            if int(request.POST.get('theme')) == 0:
+                color = "light"
 
-        else:
+            else:
 
-            color = "dark"
-        print(color)
-        print(request.POST)
+                color = "dark"
+        except TypeError:
+            logging.error(" None-type sent to the POST request")
 
         if request.POST.get('password'):
             record.set_password(request.POST.get('password'))
