@@ -10,12 +10,28 @@ from django.urls import reverse
 from main.models import User, Voting, VoteVariant, VoteFact, VoteFactVariant
 
 
+class ThemeSettings:
+    def __init__(self, text_color: str, bg_color: str, nav_color: str, bg_for_elements: str):
+        self.text_color = text_color
+        self.bg_color = bg_color
+        self.nav_color = nav_color
+        self.bg_for_elements = bg_for_elements
+
+
 def get_menu_context():
     return [
         {'url_name': 'index', 'name': 'Главная'},
         {'url_name': 'about', 'name': 'О сайте'},
         {'url_name': 'users', 'name': 'Пользователели'}
     ]
+
+
+def get_theme_context(user: User):
+    theme_context = {
+        0: ThemeSettings('dark', 'bg-light', 'bg-dark', 'bg-white'),
+        1: ThemeSettings('white', 'bg-dark', 'bg-secondary', 'bg-secondary'),
+    }
+    return theme_context[user.theme]
 
 
 def index_page(request):
@@ -200,7 +216,6 @@ def all_users_page(request):
 
 @login_required
 def settings_profile_page(request, user_id):
-    context = {'menu': get_menu_context()}
     if request.method == 'POST':
         record = User.objects.get(id=user_id)
         record.username = request.POST.get('name') if request.POST.get('name') else request.user.username
@@ -209,9 +224,7 @@ def settings_profile_page(request, user_id):
         try:
             if int(request.POST.get('theme')) == 0:
                 color = "light"
-
             else:
-
                 color = "dark"
         except TypeError:
             logging.error(" None-type sent to the POST request")
@@ -219,7 +232,10 @@ def settings_profile_page(request, user_id):
         if request.POST.get('password'):
             record.set_password(request.POST.get('password'))
         record.save()
-    context['user'] = get_object_or_404(User, id=user_id)
+
+    context = {'menu': get_menu_context(), 'theme_set': get_theme_context(User.objects.get(id=user_id)),
+               'user': get_object_or_404(User, id=user_id)}
+
     votefacts = reversed(list(VoteFact.objects.filter(user=context['user'])))
     context['votefacts'] = [{'fact': fact, 'voting': fact.get_voting()} for fact in votefacts]
     return render(request, 'pages/settings.html', context)
