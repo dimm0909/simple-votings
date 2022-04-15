@@ -9,11 +9,11 @@
         {% block extra_css %} {% endblock %}
     </head>
 
-    {% if user.theme == 0 %}
+    {% if user.theme == 1 %}
 
-      <body class="bg-light">
-    {% else %}
       <body class="bg-dark">
+    {% else %}
+      <body class="bg-light">
     {% endif %}
      <header>
             {% include 'base/menu.html' %}
