@@ -4,15 +4,18 @@
 {% block content %}
   <div class="row mt-3">
     <div class="container">
-      <div class="border rounded shadow-sm bg-white py-1 px-2 ">
-        <h3>Голосования</h3>
+      <div class="border rounded shadow-sm {{theme_set.bg_color}} py-1 px-2 ">
+        <div class="{{ theme_set.text_color }}">
+          <h3>Голосования</h3>
+        </div>
+
       </div>
     </div>
   </div>
 
   <div class="row mt-3">
     <div class="container">
-      <div class="border rounded shadow-sm bg-white px-3 py-2">
+      <div class="border rounded shadow-sm {{theme_set.bg_for_elements}} px-3 py-2">
         <h4>Все голосования:</h4>
         <table class="table table-bordered table-hover text-center">
           <thead>

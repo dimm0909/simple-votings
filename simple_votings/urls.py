@@ -23,7 +23,7 @@ from main.views import voting_public_page, voting_details_page, voting_results_p
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index_page, name='index'),
+    path('index/<str:user_id>/', views.index_page, name='index'),
     path('accounts/register/', RegistrationView.as_view(form_class=VotingRegistrationForm),
          name='django_registration_register'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
@@ -34,9 +34,9 @@ urlpatterns = [
     path('voting/<int:voting_id>/results/', voting_results_page, name='voting_results'),
     path('create_voting/', views.create_voting_page, name='create_voting'),
     path('profile/<str:user_id>/', views.profile_page, name='profile'),
-    path('all_votings/', views.all_votings_page, name='all_votings'),
-    path('about/', views.about_page, name='about'),
-    path('users/', views.all_users_page, name='users'),
-    path('start/', views.start_page, name='start'),
+    path('all_votings/<str:user_id>/', views.all_votings_page, name='all_votings'),
+    path('about/<str:user_id>/', views.about_page, name='about'),
+    path('users/<str:user_id>/', views.all_users_page, name='users'),
+    path('', views.start_page, name='start'),
     path('settings/<str:user_id>/', views.settings_profile_page, name='settings')
 ]

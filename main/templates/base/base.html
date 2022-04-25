@@ -9,29 +9,27 @@
         {% block extra_css %} {% endblock %}
     </head>
 
-    {% if user.theme == 1 %}
 
-      <body class="bg-dark">
-    {% else %}
-      <body class="bg-light">
-    {% endif %}
-     <header>
-            {% include 'base/menu.html' %}
-        </header>
 
-        <main>
-            <div class="container-fluid">
-              {% block content %} {% endblock %}
-            </div>
-        </main>
+    <body class="{{ theme_set.bg_color }}">
 
-        <footer>
-          <div class="container-fluid mt-5">
-            {% block footer %}
-                <span>&copy; ШП, {% now "Y" %}</span>
-            {% endblock %}
+      <header>
+          {% include 'base/menu.html' %}
+      </header>
+
+      <main>
+          <div class="container-fluid">
+            {% block content %} {% endblock %}
           </div>
-        </footer>
+      </main>
+
+      <footer>
+        <div class="container-fluid mt-5">
+          {% block footer %}
+              <span>&copy; ШП, {% now "Y" %}</span>
+          {% endblock %}
+        </div>
+      </footer>
 
         {% block extra_js %} {% endblock %}
     </body>

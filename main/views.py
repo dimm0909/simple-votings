@@ -11,11 +11,12 @@ from main.models import User, Voting, VoteVariant, VoteFact, VoteFactVariant
 
 
 class ThemeSettings:
-    def __init__(self, text_color: str, bg_color: str, nav_color: str, bg_for_elements: str):
+    def __init__(self, text_color: str, bg_color: str, nav_color: str, bg_for_elements: str, dropdown_color: str):
         self.text_color = text_color
         self.bg_color = bg_color
         self.nav_color = nav_color
         self.bg_for_elements = bg_for_elements
+        self.drop_color = dropdown_color
 
 
 def get_menu_context():
@@ -28,14 +29,15 @@ def get_menu_context():
 
 def get_theme_context(user: User):
     theme_context = {
-        0: ThemeSettings('dark', 'bg-light', 'bg-dark', 'bg-white'),
-        1: ThemeSettings('white', 'bg-dark', 'bg-secondary', 'bg-secondary'),
+        0: ThemeSettings('text-dark', 'bg-light', 'navbar-light', 'bg-white', 'dropdown-menu-light'),
+        1: ThemeSettings('text-light', 'bg-dark', 'navbar-dark', 'bg-secondary', 'dropdown-menu-dark'),
     }
     return theme_context[user.theme]
 
 
-def index_page(request):
+def index_page(request, user_id):
     context = {
+        'theme_set': get_theme_context(User.objects.get(id=user_id)),
         'pagename': 'Главная',
         'menu': get_menu_context()
     }
@@ -46,8 +48,9 @@ def index_page(request):
     return render(request, 'pages/index.html', context)
 
 
-def about_page(request):
+def about_page(request, user_id):
     context = {
+        'theme_set' : get_theme_context(User.objects.get(id=user_id)),
         'pagename': 'О сайте',
         'menu': get_menu_context()
     }
@@ -181,18 +184,21 @@ def create_voting_page(request):
     return render(request, 'pages/voting/create.html', context)
 
 
-def all_votings_page(request):
+def all_votings_page(request, user_id):
     context = {
         'pagename': 'Создание голосования',
         'menu': get_menu_context(),
+        'theme_set': get_theme_context(User.objects.get(id=user_id)),
         'votings': Voting.objects.filter(published=True).order_by('-id')
     }
+
     return render(request, 'pages/all_votings.html', context)
 
 
 @login_required
-def all_users_page(request):
+def all_users_page(request, user_id):
     context = {
+        'theme_set' : get_theme_context(User.objects.get(id = user_id)),
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
 
