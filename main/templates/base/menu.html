@@ -4,18 +4,11 @@
 <nav class="navbar navbar-expand-md {{theme_set.nav_color}} {{ theme_set.bg_for_elements }}">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'start' %}">Simple votings</a>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'index' request.user.id %}">Главная</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'about' request.user.id %}">О сайте</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'users' request.user.id %}">Пользователи</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'all_votings' request.user.id %}">Все голосования</a>
-    </li>
+       {% block menu %}
+      {% for item in menu %}
+        <a class="nav-link {{theme_set.text_color}}" href="{% url item.url_name request.user.id %}">{{ item.name }}</a>
+      {% endfor %}
+    {% endblock %}
 
 
   <div class="collapse navbar-collapse md-0 py-0 {{theme_set.nav_color}}" id="navbarNavDarkDropdown">
@@ -29,7 +22,7 @@
         {% if request.user.is_authenticated %}
 
         <li class="nav-item">
-          <a class="dropdown-item" href="{% url 'settings' request.user.id %}">Настройки</a>
+          <a class="dropdown-item " href="{% url 'settings' request.user.id %}">Настройки</a>
         </li>
         <li><hr class="dropdown-divider"></li>
         <li class="nav-item">
