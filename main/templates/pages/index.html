@@ -21,7 +21,7 @@
           <div align="right" class="position-absolute top-0 end-0 mt-1 mb-2 px-3 "><button id="button_new_voting" onclick="new_voting()" class = "btn btn-primary">+</button></div>
           {% if votings %}
           <h4>Мои голосования:</h4>
-          <table class="table table-bordered table-hover text-center">
+          <table class="table table-bordered table-hover text-center {{ theme_set.text_color }}">
             <thead>
             <tr>
               <th scope="col">№</th>
@@ -34,7 +34,7 @@
             {% for item in votings %}
               <tr>
                 <th>{{item.id}}</th>
-                <th><a class="link-dark" href="/voting/{{item.id}}/">{{item.name}}</a></th>
+                <th><a class="link-dark {{ theme_set.text_color }}" href="/voting/{{item.id}}/">{{item.name}}</a></th>
                 <th>{{item.author}}</th>
                 {% if item.published %}
                   <th>Открыто</th>
