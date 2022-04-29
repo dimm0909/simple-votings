@@ -30,7 +30,7 @@ def get_menu_context():
     ]
 
 
-def get_theme_context(user: User):
+def get_theme_context(user_id):
     theme_context = {
         0: ThemeSettings(text_color='text-dark', bg_color='bg-light', nav_color='navbar-light',
                          nav_color_bg='bg-dark', nav_color_text='text-light', bg_for_elements='bg-white',
@@ -40,13 +40,14 @@ def get_theme_context(user: User):
                          nav_color_bg='bg-dark', nav_color_text='text-light', bg_for_elements='bg-secondary',
                          dropdown_color='dropdown-menu-dark'),
     }
-    return theme_context[user.theme]
+    return theme_context[User.objects.get(id=user_id)] if user_id != -1 else theme_context[0]
 
 
 def index_page(request):
-    user_id = request.user.id
+    user_id = request.user.id if request.user.is_authenticated else -1
+    print(user_id)
     context = {
-        'theme_set': get_theme_context(User.objects.get(id=user_id)),
+        'theme_set': get_theme_context(user_id),
         'pagename': 'Главная',
         'menu': get_menu_context()
     }
@@ -58,9 +59,9 @@ def index_page(request):
 
 
 def about_page(request):
-    user_id = request.user.id
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
-        'theme_set': get_theme_context(User.objects.get(id=user_id)),
+        'theme_set': get_theme_context(user_id),
         'pagename': 'О сайте',
         'menu': get_menu_context()
     }
@@ -200,11 +201,11 @@ def create_voting_page(request):
 
 
 def all_votings_page(request):
-    user_id = request.user.id
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
         'pagename': 'Создание голосования',
         'menu': get_menu_context(),
-        'theme_set': get_theme_context(User.objects.get(id=user_id)),
+        'theme_set': get_theme_context(user_id),
         'votings': Voting.objects.filter(published=True).order_by('-id')
     }
 
@@ -213,9 +214,9 @@ def all_votings_page(request):
 
 @login_required
 def all_users_page(request):
-    user_id = request.user.id
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
-        'theme_set': get_theme_context(User.objects.get(id=user_id)),
+        'theme_set': get_theme_context(user_id),
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
 
