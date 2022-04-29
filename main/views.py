@@ -35,7 +35,8 @@ def get_theme_context(user: User):
     return theme_context[user.theme]
 
 
-def index_page(request, user_id):
+def index_page(request):
+    user_id = request.user.id
     context = {
         'theme_set': get_theme_context(User.objects.get(id=user_id)),
         'pagename': 'Главная',
@@ -48,7 +49,8 @@ def index_page(request, user_id):
     return render(request, 'pages/index.html', context)
 
 
-def about_page(request, user_id):
+def about_page(request):
+    user_id = request.user.id
     context = {
         'theme_set' : get_theme_context(User.objects.get(id=user_id)),
         'pagename': 'О сайте',
@@ -62,6 +64,11 @@ def start_page(request):
         'pagename': 'Simple-Votings',
         'menu': get_menu_context()
     }
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        context['theme_set'] = get_theme_context(User.objects.get(id=user_id))
+
     return render(request, 'pages/start.html', context)
 
 
@@ -184,7 +191,8 @@ def create_voting_page(request):
     return render(request, 'pages/voting/create.html', context)
 
 
-def all_votings_page(request, user_id):
+def all_votings_page(request):
+    user_id = request.user.id
     context = {
         'pagename': 'Создание голосования',
         'menu': get_menu_context(),
@@ -196,9 +204,10 @@ def all_votings_page(request, user_id):
 
 
 @login_required
-def all_users_page(request, user_id):
+def all_users_page(request):
+    user_id = request.user.id
     context = {
-        'theme_set' : get_theme_context(User.objects.get(id = user_id)),
+        'theme_set': get_theme_context(User.objects.get(id=user_id)),
         'pagename': 'Все пользователи',
         'menu': get_menu_context(),
 
