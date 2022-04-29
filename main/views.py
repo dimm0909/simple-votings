@@ -2,19 +2,22 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError, PermissionDenied
-from django.core.mail import message
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from main.models import User, Voting, VoteVariant, VoteFact, VoteFactVariant
+from main.models import User, Voting, VoteVariant, VoteFact
 
 
 class ThemeSettings:
-    def __init__(self, text_color: str, bg_color: str, nav_color: str, bg_for_elements: str, dropdown_color: str):
+    def __init__(self, text_color: str, bg_color: str, nav_color: str, nav_color_bg: str,
+                 nav_color_text: str, bg_for_elements: str, dropdown_color: str):
+
         self.text_color = text_color
         self.bg_color = bg_color
         self.nav_color = nav_color
+        self.nav_color_bg = nav_color_bg
+        self.nav_color_text = nav_color_text
         self.bg_for_elements = bg_for_elements
         self.drop_color = dropdown_color
 
@@ -29,8 +32,13 @@ def get_menu_context():
 
 def get_theme_context(user: User):
     theme_context = {
-        0: ThemeSettings('text-dark', 'bg-light', 'navbar-light', 'bg-white', 'dropdown-menu-light'),
-        1: ThemeSettings('text-light', 'bg-dark', 'navbar-dark', 'bg-secondary', 'dropdown-menu-dark'),
+        0: ThemeSettings(text_color='text-dark', bg_color='bg-light', nav_color='navbar-light',
+                         nav_color_bg='bg-dark', nav_color_text='text-light', bg_for_elements='bg-white',
+                         dropdown_color='dropdown-menu-light'),
+
+        1: ThemeSettings(text_color='text-light', bg_color='bg-dark', nav_color='navbar-dark',
+                         nav_color_bg='bg-dark', nav_color_text='text-light', bg_for_elements='bg-secondary',
+                         dropdown_color='dropdown-menu-dark'),
     }
     return theme_context[user.theme]
 
@@ -52,7 +60,7 @@ def index_page(request):
 def about_page(request):
     user_id = request.user.id
     context = {
-        'theme_set' : get_theme_context(User.objects.get(id=user_id)),
+        'theme_set': get_theme_context(User.objects.get(id=user_id)),
         'pagename': 'О сайте',
         'menu': get_menu_context()
     }
