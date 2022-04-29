@@ -8,7 +8,6 @@
         <div class="{{ theme_set.text_color }}">
           <h3>Голосования</h3>
         </div>
-
       </div>
     </div>
   </div>
@@ -17,7 +16,7 @@
     <div class="container">
       <div class="border rounded shadow-sm {{theme_set.bg_for_elements}} px-3 py-2">
         <h4>Все голосования:</h4>
-        <table class="table table-bordered table-hover text-center">
+        <table class="table table-bordered table-hover text-center {{ theme_set.text_color }}">
           <thead>
           <tr>
             <th scope="col">Название</th>
@@ -28,7 +27,7 @@
           <tbody>
           {% for item in votings %}
             <tr>
-              <th><a class="link-dark" href="{% url 'voting_public' item.id %}">{{ item.name }}</a></th>
+              <th><a class="link-dark {{ theme_set.text_color }}" href="{% url 'voting_public' item.id %}">{{ item.name }}</a></th>
               <th>{{ item.description }}</th>
               <th>{{ item.author }}</th>
             </tr>

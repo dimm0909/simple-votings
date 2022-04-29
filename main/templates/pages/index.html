@@ -34,7 +34,7 @@
             {% for item in votings %}
               <tr>
                 <th>{{item.id}}</th>
-                <th><a class="link-dark {{ theme_set.text_color }}" href="/voting/{{item.id}}/">{{item.name}}</a></th>
+                <th><a class="{{ theme_set.text_color }}" href="/voting/{{item.id}}/"><u>{{item.name}}</u></a></th>
                 <th>{{item.author}}</th>
                 {% if item.published %}
                   <th>Открыто</th>
