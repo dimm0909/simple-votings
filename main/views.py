@@ -40,7 +40,9 @@ def get_theme_context(user_id):
                          nav_color_bg='bg-dark', nav_color_text='text-light', bg_for_elements='bg-secondary',
                          dropdown_color='dropdown-menu-dark'),
     }
-    return theme_context[User.objects.get(id=user_id)] if user_id != -1 else theme_context[0]
+    print(User.objects.get(id=user_id))
+    print(User.objects.get(id=user_id).theme)
+    return theme_context[User.objects.get(id=user_id).theme] if user_id != -1 else theme_context[0]
 
 
 def index_page(request):
@@ -100,11 +102,13 @@ def profile_page(request, user_id):
 @login_required
 def voting_results_page(request, voting_id):
     voting = get_object_or_404(Voting, id=voting_id, published=True)
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
         'menu': get_menu_context(),
         'voting': voting,
         'variants': voting.get_all_variants(),
-        'facts': voting.get_results()
+        'facts': voting.get_results(),
+        'theme_set': get_theme_context(user_id),
     }
 
     for variant in context['facts']:
@@ -115,8 +119,10 @@ def voting_results_page(request, voting_id):
 
 @login_required
 def voting_public_page(request, voting_id):
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
-        'menu': get_menu_context()
+        'menu': get_menu_context(),
+        'theme_set': get_theme_context(user_id),
     }
     voting = get_object_or_404(Voting, id=voting_id, published=True)
     variants = voting.get_all_variants()
@@ -139,8 +145,10 @@ def voting_public_page(request, voting_id):
 
 @login_required
 def voting_details_page(request, voting_id):
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
-        'menu': get_menu_context()
+        'menu': get_menu_context(),
+        'theme_set': get_theme_context(user_id),
     }
     voting = get_object_or_404(Voting, id=voting_id)
     context['voting'] = voting
@@ -178,9 +186,11 @@ def votevariant_delete_page(request, voting_id, variant_id):
 
 @login_required
 def create_voting_page(request):
+    user_id = request.user.id if request.user.is_authenticated else -1
     context = {
         'pagename': 'Создание голосования',
-        'menu': get_menu_context()
+        'menu': get_menu_context(),
+        'theme_set': get_theme_context(user_id),
     }
     if request.method == 'POST':
         try:
@@ -257,7 +267,8 @@ def settings_profile_page(request, user_id):
             record.set_password(request.POST.get('password'))
         record.save()
 
-    context = {'menu': get_menu_context(), 'theme_set': get_theme_context(User.objects.get(id=user_id)),
+    context = {'menu': get_menu_context(),
+               'theme_set': get_theme_context(user_id),
                'user': get_object_or_404(User, id=user_id)}
 
     votefacts = reversed(list(VoteFact.objects.filter(user=context['user'])))
