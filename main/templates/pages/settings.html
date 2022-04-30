@@ -4,7 +4,7 @@
 {% block content %}
   <div class="row mt-3">
     <div class="container">
-      <div class="border rounded shadow-sm {{ theme_set.bg_for_elements }} py-1 px-2 text-dark" >
+      <div class="border rounded shadow-sm py-1 px-2 {{ theme_set.bg_for_elements }} {{ theme_set.text_color }}">
         <h3>Профиль пользователя {{ user.username }}</h3>
       </div>
     </div>
@@ -12,7 +12,7 @@
   <div class="row mt-3">
     <div class="col">
     <div class="container">
-      <div class="my-3 p-3 rounded shadow-sm {{ theme_set.bg_for_elements }}">
+      <div class="my-3 p-3 rounded shadow-sm {{ theme_set.text_color }} {{ theme_set.bg_for_elements }}">
         <h4>Здесь детали профиля</h4>
         <hr>
         <div class="container bordered">
@@ -75,9 +75,9 @@
 
     <div class="col">
       <div class="container">
-        <div class="my-3 p-3 rounded shadow-sm {{ theme_set.bg_for_elements }}">
+        <div class="my-3 p-3 rounded shadow-sm {{ theme_set.bg_for_elements }} {{ theme_set.text_color }}">
           <h4>Активность</h4>
-          <table class="table table-bordered table-hover text-center">
+          <table class="table table-bordered table-hover text-center {{ theme_set.bg_for_elements }} {{ theme_set.text_color }}">
             <thead>
             <tr>
               <th scope="col">Действие</th>
@@ -93,7 +93,7 @@
                   {% else %}
                     "{{ votefact.fact.votefactvariant_set.first.variant.description }}"
                   {% endif %}
-                  в голосовании "<a class = "link-dark" href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
+                  в голосовании "<a class = "link-dark {{ theme_set.text_color }}" href="{% url 'voting_public' votefact.voting.id %}">{{ votefact.voting.name }}</a>"
                 </td>
                 <td>{{ votefact.fact.created_at }}</td>
               </tr>
