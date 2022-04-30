@@ -40,14 +40,11 @@ def get_theme_context(user_id):
                          nav_color_bg='bg-dark', nav_color_text='text-light', bg_for_elements='bg-secondary',
                          dropdown_color='dropdown-menu-dark'),
     }
-    print(User.objects.get(id=user_id))
-    print(User.objects.get(id=user_id).theme)
     return theme_context[User.objects.get(id=user_id).theme] if user_id != -1 else theme_context[0]
 
 
 def index_page(request):
     user_id = request.user.id if request.user.is_authenticated else -1
-    print(user_id)
     context = {
         'theme_set': get_theme_context(user_id),
         'pagename': 'Главная',
