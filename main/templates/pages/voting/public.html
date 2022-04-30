@@ -3,14 +3,14 @@
 
 {% block content %}
   <div class="row">
-    <div class="col border bg-light mt-2">
+    <div class="col border mt-2 {{ theme_set.text_color }} {{ theme_set.bg_for_elements }}">
       <h3>Страница голосования</h3>
     </div>
   </div>
-  <div class="row mt-3 justify-content-center">
+  <div class="row mt-3 justify-content-center ">
     <div class="col-6" style="width: auto; max-width: 100%; min-width: 30%">
       <div class="card">
-        <div class="card-header text-center">
+        <div class="card-header text-center {{ theme_set.text_color }} {{ theme_set.bg_for_elements }}">
           <h2>{{ voting.name }}</h2>
           <hr>
           <div class="row mt-2">
@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body text-center">
+        <div class="card-body text-center {{ theme_set.text_color }} {{ theme_set.bg_for_elements }}">
           {% if voting.type == 2 %}
             <form action="{% url 'voting_public' voting.id %}" method="POST">
               {% csrf_token %}
