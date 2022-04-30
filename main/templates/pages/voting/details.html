@@ -4,14 +4,14 @@
 
 {% block content %}
   <div class="row">
-    <div class="col border bg-light mt-2">
+    <div class="col border mt-2 {{ theme_set.bg_for_elements }} {{ theme_set.text_color }}">
       <h3>Страница голосования</h3>
     </div>
   </div>
 
   <div class="row mt-3 justify-content-center">
     <div class="col-5">
-      <div class="card">
+      <div class="card {{ theme_set.bg_for_elements }} {{ theme_set.text_color }}">
         <form method="POST" id="change_vote_form">
           {% csrf_token %}
           <div class="card-header text-center">
@@ -25,10 +25,10 @@
                    value="{{ voting.description }}" id="voting_description_input" hidden>
           </div>
         </form>
-        <div class="card-body text-center">
+        <div class="card-body text-center ">
           <div class="row">
             <div class="col">
-              <table class="table table-bordered" style="table-layout:fixed;">
+              <table class="table table-bordered {{ theme_set.text_color }}" style="table-layout:fixed;">
                 <tbody>
                 {% for variant in variants %}
                   <tr>
