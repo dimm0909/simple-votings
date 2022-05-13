@@ -26,7 +26,8 @@ def get_menu_context():
     return [
         {'url_name': 'index', 'name': 'Главная'},
         {'url_name': 'about', 'name': 'О сайте'},
-        {'url_name': 'users', 'name': 'Пользователели'}
+        {'url_name': 'users', 'name': 'Пользователели'},
+        {'url_name': 'all_votings', 'name': 'Все Голосования'}
     ]
 
 
