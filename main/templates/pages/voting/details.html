@@ -9,23 +9,23 @@
     </div>
   </div>
 
-  <div class="row mt-3 justify-content-center">
-    <div class="col-5">
-      <div class="card">
-        <form method="POST" id="change_vote_form">
-          {% csrf_token %}
-          <div class="card-header text-center">
-            <h2 id="voting_name">{{ voting.name }}</h2>
-            <input type="text" name="voting_name" class="form-control text-center" value="{{ voting.name }}"
-                   id="voting_name_input"
-                   hidden>
-            <hr>
-            <p id="voting_description">{{ voting.description }}</p>
-            <input type="text" name="voting_description" class="form-control text-center"
-                   value="{{ voting.description }}" id="voting_description_input" hidden>
-          </div>
-        </form>
-        <div class="card-body text-center">
+<div class="row mt-3 justify-content-center">
+  <div class="col-5">
+    <div class="card">
+      <form method="POST" id="change_vote_form">
+        {% csrf_token %}
+        <div class="card-header text-center">
+          <h2 id="voting_name">{{ voting.name }}</h2>
+          <input type="text" name="voting_name" class="form-control text-center" value="{{ voting.name }}"
+                 id="voting_name_input"
+                 hidden>
+          <hr>
+          <p id="voting_description">{{ voting.description }}</p>
+          <input type="text" name="voting_description" class="form-control text-center"
+                 value="{{ voting.description }}" id="voting_description_input" hidden>
+        </div>
+      </form>
+        <div class="card-body text-center bg-light">
           <div class="row">
             <div class="col">
               <table class="table table-bordered" style="table-layout:fixed;">
@@ -33,10 +33,10 @@
                 {% for variant in variants %}
                   <tr>
                     <td>{{ variant.description }}</td>
-                    <td style="width: 20%">
+                    <td class="bg-danger" style="width: 30%">
                       <form method="POST" action="{% url 'votevariant_delete' voting.id variant.id %}">
                         {% csrf_token %}
-                        <input type="submit" class="btn btn-danger" value="Удалить">
+                        <input type="submit" class="btn" value="Удалить">
                       </form>
                     </td>
                   </tr>
@@ -45,37 +45,49 @@
               </table>
             </div>
           </div>
-          <form id="form_add_var" method="POST" hidden>
-            {% csrf_token %}
+          <div class="row">
+            <form id="form_add_var" method="POST" hidden>
+              {% csrf_token %}
+              <div class="row">
+                <label for="new_var_id" class="col-sm-4 col-form-label">Введите новый вариант:</label>
+                <div class="col-sm-6">
+                  <input type="text" name="new_variant" class="form-control" id="new_var_id" required>
+                </div>
+              </div>
+            </form>
+          </div>
+          <input type="submit" id="save_new_var" form="form_add_var" class="btn btn-success m-2" onclick="add_varinant()" value="Сохранить новый вариант" hidden>
+            {% if norm_count_of_variants %}
+          <button class="btn btn-success m-2" onclick="add_varinant()" id="add_variant">
+              Добавить новый вариант
+          </button>
+          {% endif %}
+            <input type="submit" class="btn btn-success" id="save_vote" onclick="change_voting()" hidden form="change_vote_form" value="Сохранить голосование">
+          <div class="col">
+            <button class="btn btn-primary" onclick="change_voting()" id="change_vote">
+              Редактировать голосование
+            </button>
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <div class="container">
             <div class="row">
-              <label for="new_var_id" class="col-sm-4 col-form-label">Введите новый вариант:</label>
-              <div class="col-sm-8">
-                <input type="text" name="new_variant" class="form-control" id="new_var_id" required>
+              <div class="col col-sm-2">
+                {% if voting.published %}
+                  <p>Опубликовано</p>
+                {% else %}
+                  <form method="POST">
+                  {% csrf_token %}
+                  <input type="submit" class="btn btn-primary" value="Опубликовать">
+                  </form>
+                {% endif %}
               </div>
             </div>
-          </form>
-          <input type="submit" id="save_new_var" form="form_add_var" class="btn btn-success m-2"
-                 onclick="add_varinant()"
-                 value="Сохранить новый вариант" hidden>
-          {% if norm_count_of_variants %}
-            <button class="btn btn-success m-2" onclick="add_varinant()" id="add_variant">Добавить новый вариант
-            </button>
-          {% endif %}
-          <input type="submit" class="btn btn-success" id="save_vote" onclick="change_voting()" hidden
-                 form="change_vote_form" value="Сохранить голосование">
-          <button class="btn btn-primary" onclick="change_voting()" id="change_vote">Редактировать голосование</button>
-          <button type="button" class="btn btn-info"
-                  onclick="document.location.href = '/voting/{{ voting.id }}/public/'">Оставить голоc</button>
-          <button type="button" class="btn btn-secondary"
-                  onclick="document.location.href = '/voting/{{ voting.id }}/results/'">Результаты</button>
-          {% if voting.published %}
-            <p>Опубликовано</p>
-          {% else %}
-            <form method="POST">
-              {% csrf_token %}
-              <input type="submit" class="btn btn-primary" value="Опубликовать">
-            </form>
-          {% endif %}
+          </div>
+
+        </div>
+      </div>
+
           {% if messages %}
           {% for message in messages %}
           <div class="row">
